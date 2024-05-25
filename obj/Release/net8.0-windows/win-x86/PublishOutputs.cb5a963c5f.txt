@@ -1,0 +1,7 @@
+d:\desktop\OpenRelease\OpenDownload.NET.pdb
+d:\desktop\OpenRelease\D3DCompiler_47_cor3.dll
+d:\desktop\OpenRelease\PenImc_cor3.dll
+d:\desktop\OpenRelease\PresentationNative_cor3.dll
+d:\desktop\OpenRelease\vcruntime140_cor3.dll
+d:\desktop\OpenRelease\wpfgfx_cor3.dll
+d:\desktop\OpenRelease\OpenDownload.NET.exe
