@@ -41,7 +41,7 @@
             label1.Name = "label1";
             label1.Size = new Size(629, 60);
             label1.TabIndex = 0;
-            label1.Text = "注意：\r\n错误配置用户代理请求头可能导致 403 拒绝访问错误，若你不知道该项作用，请使用默认配置\r\n所有的 User-Agent 更改将在新的下载任务中生效";
+            label1.Text = "⚠ 注意：\r\n错误配置用户代理请求头可能导致 403 拒绝访问错误，若你不知道该项作用，请使用预设配置\r\n所有的 User-Agent 更改将在新的下载任务中生效";
             // 
             // textBox1
             // 
@@ -70,10 +70,12 @@
             Controls.Add(button1);
             Controls.Add(textBox1);
             Controls.Add(label1);
-            FormBorderStyle = FormBorderStyle.Fixed3D;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "User_Agent_Config_FormPage";
+            ShowIcon = false;
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "配置用户代理请求头（User-Agent）";
             ResumeLayout(false);

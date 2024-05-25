@@ -122,10 +122,12 @@
             Controls.Add(label2);
             Controls.Add(textBox1);
             Controls.Add(label1);
-            FormBorderStyle = FormBorderStyle.Fixed3D;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "New_Task";
+            ShowIcon = false;
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "创建新任务";
             ResumeLayout(false);

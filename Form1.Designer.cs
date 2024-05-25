@@ -37,13 +37,13 @@
             默认代理请求头配置按钮 = new ToolStripMenuItem();
             百度网盘专用代理请求头配置按钮 = new ToolStripMenuItem();
             用户自定义代理配置请求头按钮 = new ToolStripMenuItem();
+            toolStripButton1 = new ToolStripButton();
             listView1 = new ListView();
             源地址columnHeader = new ColumnHeader();
             状态columnHeader = new ColumnHeader();
             保存路径columnHeader = new ColumnHeader();
             Status = new ToolStripStatusLabel();
             statusStrip1 = new StatusStrip();
-            toolStripButton1 = new ToolStripButton();
             toolStrip1.SuspendLayout();
             statusStrip1.SuspendLayout();
             SuspendLayout();
@@ -92,7 +92,7 @@
             请求头ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 默认代理请求头配置按钮, 百度网盘专用代理请求头配置按钮, 用户自定义代理配置请求头按钮 });
             请求头ToolStripMenuItem.Image = (Image)resources.GetObject("请求头ToolStripMenuItem.Image");
             请求头ToolStripMenuItem.Name = "请求头ToolStripMenuItem";
-            请求头ToolStripMenuItem.Size = new Size(197, 26);
+            请求头ToolStripMenuItem.Size = new Size(224, 26);
             请求头ToolStripMenuItem.Text = "用户代理请求头";
             请求头ToolStripMenuItem.ToolTipText = "配置用户代理请求头（User-Agent），以避免可能的拒绝访问";
             // 
@@ -108,11 +108,11 @@
             // 
             // 百度网盘专用代理请求头配置按钮
             // 
-            百度网盘专用代理请求头配置按钮.Enabled = false;
             百度网盘专用代理请求头配置按钮.Name = "百度网盘专用代理请求头配置按钮";
             百度网盘专用代理请求头配置按钮.Size = new Size(227, 26);
             百度网盘专用代理请求头配置按钮.Text = "百度网盘专用请求头";
-            百度网盘专用代理请求头配置按钮.ToolTipText = "（正在开发）面向百度网盘特殊需求下载的专用用户代理请求头";
+            百度网盘专用代理请求头配置按钮.ToolTipText = "面向百度网盘特殊需求下载的专用用户代理请求头";
+            百度网盘专用代理请求头配置按钮.Click += 百度网盘专用代理请求头配置按钮_Click;
             // 
             // 用户自定义代理配置请求头按钮
             // 
@@ -121,6 +121,16 @@
             用户自定义代理配置请求头按钮.Text = "用户自定义";
             用户自定义代理配置请求头按钮.ToolTipText = "配置自定义代理请求头以在特殊下载时避免异常";
             用户自定义代理配置请求头按钮.Click += 用户自定义代理配置请求头按钮_Click;
+            // 
+            // toolStripButton1
+            // 
+            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
+            toolStripButton1.ImageTransparentColor = Color.Magenta;
+            toolStripButton1.Name = "toolStripButton1";
+            toolStripButton1.Size = new Size(43, 24);
+            toolStripButton1.Text = "关于";
+            toolStripButton1.Click += toolStripButton1_Click;
             // 
             // listView1
             // 
@@ -135,7 +145,7 @@
             // 源地址columnHeader
             // 
             源地址columnHeader.Text = "源地址";
-            源地址columnHeader.Width = 300;
+            源地址columnHeader.Width = 700;
             // 
             // 状态columnHeader
             // 
@@ -145,7 +155,7 @@
             // 保存路径columnHeader
             // 
             保存路径columnHeader.Text = "保存路径";
-            保存路径columnHeader.Width = 315;
+            保存路径columnHeader.Width = 524;
             // 
             // Status
             // 
@@ -162,16 +172,6 @@
             statusStrip1.TabIndex = 0;
             statusStrip1.Text = "statusStrip1";
             // 
-            // toolStripButton1
-            // 
-            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
-            toolStripButton1.ImageTransparentColor = Color.Magenta;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(43, 24);
-            toolStripButton1.Text = "关于";
-            toolStripButton1.Click += toolStripButton1_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -181,6 +181,7 @@
             Controls.Add(toolStrip1);
             Controls.Add(statusStrip1);
             FormBorderStyle = FormBorderStyle.Fixed3D;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;

@@ -90,6 +90,7 @@
             labelProductName.TabIndex = 19;
             labelProductName.Text = "Shiwulu OpenDownload 2";
             labelProductName.TextAlign = ContentAlignment.MiddleLeft;
+            labelProductName.Click += labelProductName_Click;
             // 
             // labelVersion
             // 
@@ -100,7 +101,7 @@
             labelVersion.Name = "labelVersion";
             labelVersion.Size = new Size(406, 26);
             labelVersion.TabIndex = 0;
-            labelVersion.Text = "Release 1.0 (Build 10000)";
+            labelVersion.Text = "Release 1.1 (Build 10015)";
             labelVersion.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // labelCopyright
