@@ -6,10 +6,10 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <Copyright>Copyright (c) 2024 Lavaver</Copyright>
-    <AssemblyVersion>1.1.0.10015</AssemblyVersion>
-    <FileVersion>1.1.0.10015</FileVersion>
+    <AssemblyVersion>1.2.0.10025</AssemblyVersion>
+    <FileVersion>1.2.0.10025</FileVersion>
     <PackageIcon>minecraft.png</PackageIcon>
   </PropertyGroup>
 

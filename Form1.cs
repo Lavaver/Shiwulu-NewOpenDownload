@@ -67,7 +67,7 @@ namespace OpenDownload.NET
 
         private async Task DownloadFileAsync(string sourceUrl, string savePath)
         {
-            ListViewItem newItem = null; // 在 try 代码块之外定义 newItem
+            ListViewItem newItem = null;
 
             using (HttpClient httpClient = new HttpClient())
             {
@@ -80,20 +80,17 @@ namespace OpenDownload.NET
                         throw new Exception($"下载失败：{response.StatusCode}");
                     }
 
-                    // 创建一个新的 ListViewItem 对象
                     newItem = new ListViewItem(sourceUrl);
-                    // 添加子项
-                    newItem.SubItems.Add("0%"); // 添加用于显示下载进度的子项
                     newItem.SubItems.Add(savePath);
-
-                    // 将新项添加到 ListView 控件中
+                    newItem.SubItems.Add("0%"); // 下载进度子项
+                    newItem.SubItems.Add("0 KB/s"); // 下载速度子项
+                    newItem.SubItems.Add("0 KB/s"); // 瞬时速度子项
                     listView1.Items.Add(newItem);
 
-                    // 下载文件并更新进度
                     await DownloadFileWithProgressAsync(sourceUrl, savePath, response, newItem);
 
-                    // 标记下载完成
-                    newItem.SubItems[1].Text = "完成";
+                    newItem.SubItems[2].Text = "完成";
+                    newItem.SubItems[3].Text = ""; // 清空下载速度子项
                 }
                 catch (Exception ex)
                 {
@@ -102,10 +99,25 @@ namespace OpenDownload.NET
                     if (newItem != null)
                     {
                         newItem.SubItems[1].Text = "错误";
-
+                        newItem.SubItems[3].Text = ""; // 清空下载速度子项
                     }
                 }
             }
+        }
+
+
+        private string CalculateDownloadSpeed(double speed)
+        {
+            string[] suffixes = { "B/s", "KB/s", "MB/s", "GB/s", "TB/s" };
+
+            int suffixIndex = 0;
+            while (speed >= 1024 && suffixIndex < suffixes.Length - 1)
+            {
+                speed /= 1024;
+                suffixIndex++;
+            }
+
+            return $"{speed:0.##} {suffixes[suffixIndex]}";
         }
 
         /// <summary>
@@ -156,37 +168,48 @@ namespace OpenDownload.NET
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
-        private async Task DownloadFileWithProgressAsync(string sourceUrl, string savePath, HttpResponseMessage response, ListViewItem item)
+        private async Task DownloadFileWithProgressAsync(string sourceUrl, string savePath, HttpResponseMessage response, ListViewItem listItem)
         {
             using (Stream contentStream = await response.Content.ReadAsStreamAsync())
             {
-                long? contentLength = response.Content.Headers.ContentLength;
-
                 using (FileStream fileStream = new FileStream(savePath, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
+                    long totalBytes = response.Content.Headers.ContentLength ?? -1;
+
+                    long totalDownloadedBytes = 0;
                     byte[] buffer = new byte[8192];
                     int bytesRead;
-                    long bytesDownloaded = 0;
+                    double progress = 0;
+                    DateTime startTime = DateTime.Now;
+                    DateTime previousTime = DateTime.Now;
+                    long previousDownloadedBytes = 0;
 
                     while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
                     {
                         await fileStream.WriteAsync(buffer, 0, bytesRead);
+                        totalDownloadedBytes += bytesRead;
 
-                        bytesDownloaded += bytesRead;
-                        if (contentLength.HasValue)
-                        {
-                            double progressPercentage = (double)bytesDownloaded / contentLength.Value * 100;
+                        progress = (double)totalDownloadedBytes / totalBytes * 100;
+                        listItem.SubItems[2].Text = $"{progress:F2}%";
 
-                            // 确保在UI线程上执行更新操作
-                            listView1.Invoke((MethodInvoker)delegate
-                            {
-                                item.SubItems[1].Text = $"{progressPercentage:F2}%"; // 格式化为小数点后两位
-                            });
-                        }
+                        TimeSpan elapsedTime = DateTime.Now - startTime;
+                        double speed = totalDownloadedBytes / elapsedTime.TotalSeconds;
+                        string speedStr = CalculateDownloadSpeed(speed);
+                        listItem.SubItems[3].Text = speedStr;
+
+                        TimeSpan elapsedSincePrevious = DateTime.Now - previousTime;
+                        long downloadedBytesSincePrevious = totalDownloadedBytes - previousDownloadedBytes;
+                        double instantSpeed = downloadedBytesSincePrevious / elapsedSincePrevious.TotalSeconds;
+                        string instantSpeedStr = CalculateDownloadSpeed(instantSpeed);
+                        listItem.SubItems[4].Text = instantSpeedStr;
+
+                        previousTime = DateTime.Now;
+                        previousDownloadedBytes = totalDownloadedBytes;
                     }
                 }
             }
         }
+
 
         private void UpdateProgress(string sourceUrl, int progressPercentage)
         {
@@ -195,7 +218,7 @@ namespace OpenDownload.NET
             {
                 if (item.Text == sourceUrl)
                 {
-                    item.SubItems[1].Text = $"{progressPercentage}%";
+                    item.SubItems[2].Text = $"{progressPercentage}%";
                     break;
                 }
             }

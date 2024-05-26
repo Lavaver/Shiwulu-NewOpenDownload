@@ -101,7 +101,7 @@
             labelVersion.Name = "labelVersion";
             labelVersion.Size = new Size(406, 26);
             labelVersion.TabIndex = 0;
-            labelVersion.Text = "Release 1.1 (Build 10015)";
+            labelVersion.Text = "Release 1.2 (Build 10025)";
             labelVersion.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // labelCopyright

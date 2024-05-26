@@ -40,8 +40,10 @@
             toolStripButton1 = new ToolStripButton();
             listView1 = new ListView();
             源地址columnHeader = new ColumnHeader();
-            状态columnHeader = new ColumnHeader();
             保存路径columnHeader = new ColumnHeader();
+            状态columnHeader = new ColumnHeader();
+            columnHeader1 = new ColumnHeader();
+            columnHeader2 = new ColumnHeader();
             Status = new ToolStripStatusLabel();
             statusStrip1 = new StatusStrip();
             toolStrip1.SuspendLayout();
@@ -92,7 +94,7 @@
             请求头ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 默认代理请求头配置按钮, 百度网盘专用代理请求头配置按钮, 用户自定义代理配置请求头按钮 });
             请求头ToolStripMenuItem.Image = (Image)resources.GetObject("请求头ToolStripMenuItem.Image");
             请求头ToolStripMenuItem.Name = "请求头ToolStripMenuItem";
-            请求头ToolStripMenuItem.Size = new Size(224, 26);
+            请求头ToolStripMenuItem.Size = new Size(197, 26);
             请求头ToolStripMenuItem.Text = "用户代理请求头";
             请求头ToolStripMenuItem.ToolTipText = "配置用户代理请求头（User-Agent），以避免可能的拒绝访问";
             // 
@@ -134,7 +136,7 @@
             // 
             // listView1
             // 
-            listView1.Columns.AddRange(new ColumnHeader[] { 源地址columnHeader, 状态columnHeader, 保存路径columnHeader });
+            listView1.Columns.AddRange(new ColumnHeader[] { 源地址columnHeader, 保存路径columnHeader, 状态columnHeader, columnHeader1, columnHeader2 });
             listView1.Location = new Point(12, 30);
             listView1.Name = "listView1";
             listView1.Size = new Size(1329, 595);
@@ -145,17 +147,27 @@
             // 源地址columnHeader
             // 
             源地址columnHeader.Text = "源地址";
-            源地址columnHeader.Width = 700;
+            源地址columnHeader.Width = 500;
+            // 
+            // 保存路径columnHeader
+            // 
+            保存路径columnHeader.Text = "保存路径";
+            保存路径columnHeader.Width = 524;
             // 
             // 状态columnHeader
             // 
             状态columnHeader.Text = "下载状态";
             状态columnHeader.Width = 100;
             // 
-            // 保存路径columnHeader
+            // columnHeader1
             // 
-            保存路径columnHeader.Text = "保存路径";
-            保存路径columnHeader.Width = 524;
+            columnHeader1.Text = "速度";
+            columnHeader1.Width = 100;
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "瞬时速度";
+            columnHeader2.Width = 100;
             // 
             // Status
             // 
@@ -210,5 +222,7 @@
         private ColumnHeader 状态columnHeader;
         private ColumnHeader 保存路径columnHeader;
         private ToolStripButton toolStripButton1;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
     }
 }

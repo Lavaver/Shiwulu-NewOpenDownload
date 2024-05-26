@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright (c) 2024 Lavaver")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.1.0.10015")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.1.0+e4bbaf75acebc17f3cc46711d9537ed50ee9a26d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.1.0+54326c833dd8ac895bcb5b18e11c1ce51fe31cb7")]
 [assembly: System.Reflection.AssemblyProductAttribute("OpenDownload.NET")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OpenDownload.NET")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.1.0.10015")]
