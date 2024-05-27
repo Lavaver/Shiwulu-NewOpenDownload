@@ -6,12 +6,17 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Version>1.2.0</Version>
+    <Version>2.0.0</Version>
     <Copyright>Copyright (c) 2024 Lavaver</Copyright>
-    <AssemblyVersion>1.2.0.10025</AssemblyVersion>
-    <FileVersion>1.2.0.10025</FileVersion>
+    <AssemblyVersion>2.0.0.20000</AssemblyVersion>
+    <FileVersion>2.0.0.20000</FileVersion>
     <PackageIcon>minecraft.png</PackageIcon>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="icon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\desktop\minecraft.png">
@@ -33,6 +38,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

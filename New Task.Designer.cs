@@ -66,6 +66,7 @@
             // 
             // textBox2
             // 
+            textBox2.Enabled = false;
             textBox2.Location = new Point(117, 72);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(583, 27);
