@@ -7,7 +7,7 @@ namespace OpenDownload.NET
     public partial class Form1 : Form
     {
         /// <summary>
-        /// 用于管理多区块下载各个区块的 Dictionary ，避免出现多区块下载时 listView 创建多个 Items 的尴尬问题（我对 Dotnet 开发非常自信（要不是 Java 彻夜写程序的场面堪比二战否则不会有这个版本），这种低级错误肯定不会犯的（笑））
+        /// 用于管理多区块下载各个区块的 Dictionary ，避免出现多区块下载时 listView 创建多个 Items 的尴尬问题
         /// </summary>
         private Dictionary<Task, ListViewItem> downloadTaskMap = new Dictionary<Task, ListViewItem>();
 
@@ -132,9 +132,7 @@ namespace OpenDownload.NET
 
                     await DownloadFileWithProgressAsync(sourceUrl, savePath, response, newItem);
 
-                    newItem.SubItems[2].Text = "完成";
                     notifyIcon.ShowBalloonTip(1000, $"任务 {savePath} 已完成下载", "返回到主界面以查看详细信息", ToolTipIcon.Info);
-                    newItem.SubItems[3].Text = ""; // 清空下载速度子项
                 }
                 catch (Exception ex)
                 {
@@ -151,17 +149,14 @@ namespace OpenDownload.NET
         }
 
         /// <summary>
-        /// 多区块下载模式
+        /// 多区块下载模式（Hotfix：修复使用同一个 ListViewItem 对象的问题）
         /// </summary>
         /// <param name="sourceUrl">来源 URL</param>
         /// <param name="savePath">保存地址</param>
         /// <param name="numParts">区块量</param>
         /// <returns>完整文件</returns>
-
-
         private async Task MultiPartDownloadAsync(string sourceUrl, string savePath, int numParts)
         {
-            ListViewItem newItem = new ListViewItem(sourceUrl);
             try
             {
                 notifyIcon.ShowBalloonTip(1000, $"多区块任务 {savePath} 已开始下载", "返回到主界面以查看详细信息", ToolTipIcon.Info);
@@ -176,7 +171,7 @@ namespace OpenDownload.NET
                     long endRange = (i == numParts - 1) ? fileSize - 1 : (i + 1) * partSize - 1;
                     string partSavePath = $"{savePath}.part{i}";
 
-                    
+                    ListViewItem newItem = new ListViewItem(sourceUrl);
                     newItem.SubItems.Add(savePath);
                     newItem.SubItems.Add("0%"); // 下载进度子项
                     newItem.SubItems.Add("0 KB/s"); // 下载速度子项
@@ -192,26 +187,19 @@ namespace OpenDownload.NET
 
                 // 将所有部分文件合并为完整文件
                 CombineFile(savePath, numParts);
-                newItem.SubItems[2].Text = "完成";
+
                 notifyIcon.ShowBalloonTip(1000, $"多区块任务 {savePath} 已完成下载", "返回到主界面以查看详细信息", ToolTipIcon.Info);
-                newItem.SubItems[3].Text = ""; // 清空下载速度子项
             }
             catch (Exception ex)
             {
                 MessageBox.Show("文件下载失败，日志已保存至 /Exception/{time}.log 中", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 notifyIcon.ShowBalloonTip(1000, $"多区块任务 {savePath} 失败", "日志已保存至 /Exception/{time}.log 中，可在有需要时使用", ToolTipIcon.Error);
                 CrashLogSpawn(ex);
-
-                if (newItem != null)
-                {
-                    newItem.SubItems[1].Text = "错误";
-                    newItem.SubItems[3].Text = ""; // 清空下载速度子项
-                }
             }
         }
 
         /// <summary>
-        /// 下载区块（这里的实时更新内容真的仅供参考...）
+        /// 下载区块（这里的实时更新内容真的仅供参考...）（紧急修复：解决跨线程操作 UI 线程导致软件假死问题（第 257~260 行的错误代码：await Task.Run(() =>{ （详见注释） });），但仍有部分设备因为性能原因导致硬件性假死）
         /// </summary>
         /// <param name="sourceUrl">源 URL</param>
         /// <param name="savePath">保存地址</param>
@@ -221,6 +209,9 @@ namespace OpenDownload.NET
         /// <returns>区块文件</returns>
         private async Task DownloadPartAsync(string sourceUrl, string savePath, long startRange, long endRange, ListViewItem item)
         {
+            // 记录下载开始时间
+            DateTime startTime = DateTime.Now;
+
             using (HttpClient httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", UserAgentConfig);
@@ -234,31 +225,45 @@ namespace OpenDownload.NET
                         byte[] buffer = new byte[8192];
                         int bytesRead;
                         long totalBytesRead = 0;
-                        DateTime startTime = DateTime.Now;
+                        DateTime lastUpdateTime = DateTime.Now;
 
                         while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
                         {
                             await fileStream.WriteAsync(buffer, 0, bytesRead);
                             totalBytesRead += bytesRead;
 
-                            // 更新ListViewItem的下载进度和速度
+                            // 计算进度和速度
                             double progress = (double)totalBytesRead / (endRange - startRange + 1) * 100;
-                            item.SubItems[2].Text = $"{progress:F2}%"; // 更新下载进度子项
-
                             TimeSpan elapsedTime = DateTime.Now - startTime;
-                            double speed = totalBytesRead / 1024.0 / elapsedTime.TotalSeconds; // 下载速度，单位 KB/s
-                            item.SubItems[3].Text = $"{speed:F2} KB/s"; // 更新下载速度子项
+                            double speed = totalBytesRead / 1024.0 / elapsedTime.TotalSeconds;
+                            double instantSpeed = bytesRead / 1024.0;
 
-                            double instantSpeed = bytesRead / 1024.0; // 瞬时速度，单位 KB/s
-                            item.SubItems[4].Text = $"{instantSpeed:F2} KB/s"; // 更新瞬时速度子项
-
-
-                            // 异步更新UI
-                            await Task.Run(() =>
+                            if (DateTime.Now - lastUpdateTime > TimeSpan.FromSeconds(1)) // 控制更新频率为1秒
                             {
-                                listView1.BeginInvoke(new MethodInvoker(() => { listView1.Refresh(); }));
-                            });
+                                // 更新 ListView 的项
+                                item.SubItems[2].Text = $"{progress:F2}%";
+                                item.SubItems[3].Text = CalculateDownloadSpeed(speed);
+                                item.SubItems[4].Text = CalculateDownloadSpeed(instantSpeed);
+
+                                // 使用 Invoke 来在 UI 线程上更新UI
+                                listView1.Invoke(new Action(() =>
+                                {
+                                    item.SubItems[2].Text = $"{progress:F2}%";
+                                    item.SubItems[3].Text = CalculateDownloadSpeed(speed);
+                                    item.SubItems[4].Text = CalculateDownloadSpeed(instantSpeed);
+                                }));
+
+                                lastUpdateTime = DateTime.Now; // 更新最后更新时间
+                            }
                         }
+
+                        // 循环结束后，一次性更新整个 ListView
+                        listView1.Invoke(new Action(() =>
+                        {
+                            item.SubItems[2].Text = "已完成";
+                            item.SubItems[3].Text = ""; // 可能需要根据实际情况修改
+                            item.SubItems[4].Text = ""; // 可能需要根据实际情况修改
+                        }));
                     }
                 }
             }
@@ -389,7 +394,7 @@ namespace OpenDownload.NET
                     int bytesRead;
                     double progress = 0;
                     DateTime startTime = DateTime.Now;
-                    DateTime previousTime = DateTime.Now;
+                    DateTime lastUpdateTime = DateTime.Now; // 添加最后更新时间变量
                     long previousDownloadedBytes = 0;
 
                     while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
@@ -397,23 +402,28 @@ namespace OpenDownload.NET
                         await fileStream.WriteAsync(buffer, 0, bytesRead);
                         totalDownloadedBytes += bytesRead;
 
-                        progress = (double)totalDownloadedBytes / totalBytes * 100;
-                        listItem.SubItems[2].Text = $"{progress:F2}%";
+                        if (DateTime.Now - lastUpdateTime > TimeSpan.FromSeconds(1)) // 控制更新频率为1秒
+                        {
+                            progress = (double)totalDownloadedBytes / totalBytes * 100;
+                            listItem.SubItems[2].Text = $"{progress:F2}%";
 
-                        TimeSpan elapsedTime = DateTime.Now - startTime;
-                        double speed = totalDownloadedBytes / elapsedTime.TotalSeconds;
-                        string speedStr = CalculateDownloadSpeed(speed);
-                        listItem.SubItems[3].Text = speedStr;
+                            TimeSpan elapsedTime = DateTime.Now - startTime;
+                            double speed = totalDownloadedBytes / elapsedTime.TotalSeconds;
+                            listItem.SubItems[3].Text = CalculateDownloadSpeed(speed);
 
-                        TimeSpan elapsedSincePrevious = DateTime.Now - previousTime;
-                        long downloadedBytesSincePrevious = totalDownloadedBytes - previousDownloadedBytes;
-                        double instantSpeed = downloadedBytesSincePrevious / elapsedSincePrevious.TotalSeconds;
-                        string instantSpeedStr = CalculateDownloadSpeed(instantSpeed);
-                        listItem.SubItems[4].Text = instantSpeedStr;
+                            long downloadedBytesSincePrevious = totalDownloadedBytes - previousDownloadedBytes;
+                            double instantSpeed = downloadedBytesSincePrevious / 1024.0; // 即时速度，单位为 KB/s
+                            listItem.SubItems[4].Text = CalculateDownloadSpeed(instantSpeed);
 
-                        previousTime = DateTime.Now;
-                        previousDownloadedBytes = totalDownloadedBytes;
+                            previousDownloadedBytes = totalDownloadedBytes;
+                            lastUpdateTime = DateTime.Now; // 更新最后更新时间
+                        }
                     }
+
+                    // 循环结束后，一次性更新整个 ListView
+                    listItem.SubItems[2].Text = "已完成";
+                    listItem.SubItems[3].Text = ""; 
+                    listItem.SubItems[4].Text = ""; 
                 }
             }
         }

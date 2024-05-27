@@ -101,7 +101,7 @@
             labelVersion.Name = "labelVersion";
             labelVersion.Size = new Size(406, 26);
             labelVersion.TabIndex = 0;
-            labelVersion.Text = "Release 2.0 (Build 20000)";
+            labelVersion.Text = "Hotfix Release 2.0 (Build 20000)";
             labelVersion.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // labelCopyright
