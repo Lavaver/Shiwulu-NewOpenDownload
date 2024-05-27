@@ -3,20 +3,8 @@
   "WorkspaceRootPath": "D:\\repos\\OpenDownload.NET\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8A7776B6-048F-48CE-82F5-D993F33365AF}|OpenDownload.NET.csproj|d:\\repos\\opendownload.net\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8A7776B6-048F-48CE-82F5-D993F33365AF}|OpenDownload.NET.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8A7776B6-048F-48CE-82F5-D993F33365AF}|OpenDownload.NET.csproj|d:\\repos\\opendownload.net\\about.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{8A7776B6-048F-48CE-82F5-D993F33365AF}|OpenDownload.NET.csproj|solutionrelative:about.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8A7776B6-048F-48CE-82F5-D993F33365AF}|OpenDownload.NET.csproj|d:\\repos\\opendownload.net\\opendownload.net.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
       "RelativeMoniker": "D:0:0:{8A7776B6-048F-48CE-82F5-D993F33365AF}|OpenDownload.NET.csproj|solutionrelative:opendownload.net.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8A7776B6-048F-48CE-82F5-D993F33365AF}|OpenDownload.NET.csproj|D:\\repos\\OpenDownload.NET\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{8A7776B6-048F-48CE-82F5-D993F33365AF}|OpenDownload.NET.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8A7776B6-048F-48CE-82F5-D993F33365AF}|OpenDownload.NET.csproj|d:\\repos\\opendownload.net\\about.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -25,6 +13,18 @@
     {
       "AbsoluteMoniker": "D:0:0:{8A7776B6-048F-48CE-82F5-D993F33365AF}|OpenDownload.NET.csproj|D:\\repos\\OpenDownload.NET\\new task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{8A7776B6-048F-48CE-82F5-D993F33365AF}|OpenDownload.NET.csproj|solutionrelative:new task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A7776B6-048F-48CE-82F5-D993F33365AF}|OpenDownload.NET.csproj|D:\\repos\\OpenDownload.NET\\about.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{8A7776B6-048F-48CE-82F5-D993F33365AF}|OpenDownload.NET.csproj|solutionrelative:about.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A7776B6-048F-48CE-82F5-D993F33365AF}|OpenDownload.NET.csproj|D:\\repos\\OpenDownload.NET\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{8A7776B6-048F-48CE-82F5-D993F33365AF}|OpenDownload.NET.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A7776B6-048F-48CE-82F5-D993F33365AF}|OpenDownload.NET.csproj|d:\\repos\\opendownload.net\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A7776B6-048F-48CE-82F5-D993F33365AF}|OpenDownload.NET.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8A7776B6-048F-48CE-82F5-D993F33365AF}|OpenDownload.NET.csproj|d:\\repos\\opendownload.net\\new task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -42,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,7 +54,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "About.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "D:\\repos\\OpenDownload.NET\\About.cs",
               "RelativeDocumentMoniker": "About.cs",
@@ -66,55 +66,57 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "New Task.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "D:\\repos\\OpenDownload.NET\\New Task.cs",
               "RelativeDocumentMoniker": "New Task.cs",
               "ToolTip": "D:\\repos\\OpenDownload.NET\\New Task.cs [\u8BBE\u8BA1]",
               "RelativeToolTip": "New Task.cs [\u8BBE\u8BA1]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-27T15:02:27.297Z"
+              "WhenOpened": "2024-05-27T15:02:27.297Z",
+              "EditorCaption": " [\u8BBE\u8BA1]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "About.cs",
               "DocumentMoniker": "D:\\repos\\OpenDownload.NET\\About.cs",
               "RelativeDocumentMoniker": "About.cs",
               "ToolTip": "D:\\repos\\OpenDownload.NET\\About.cs",
               "RelativeToolTip": "About.cs",
-              "ViewState": "AQIAAAoAAAAAAAAAAAAowBsAAABgAAAA",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAowBsAAADVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-26T03:57:54.722Z"
+              "WhenOpened": "2024-05-26T03:57:54.722Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Form1.cs [Design]",
+              "DocumentIndex": 4,
+              "Title": "Form1.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "D:\\repos\\OpenDownload.NET\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "D:\\repos\\OpenDownload.NET\\Form1.cs [Design]",
-              "RelativeToolTip": "Form1.cs [Design]",
+              "ToolTip": "D:\\repos\\OpenDownload.NET\\Form1.cs [\u8BBE\u8BA1]",
+              "RelativeToolTip": "Form1.cs [\u8BBE\u8BA1]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-26T03:33:07.319Z",
-              "EditorCaption": " [Design]"
+              "EditorCaption": " [\u8BBE\u8BA1]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "Form1.cs",
               "DocumentMoniker": "D:\\repos\\OpenDownload.NET\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "D:\\repos\\OpenDownload.NET\\Form1.cs",
               "RelativeToolTip": "Form1.cs",
-              "ViewState": "AQIAAOgAAAAAAAAAAAAowAQBAAA5AAAA",
+              "ViewState": "AQIAACUAAAAAAAAAAAAQwPcAAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-25T13:19:04.032Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "OpenDownload.NET",
               "DocumentMoniker": "D:\\repos\\OpenDownload.NET\\OpenDownload.NET.csproj",
               "RelativeDocumentMoniker": "OpenDownload.NET.csproj",

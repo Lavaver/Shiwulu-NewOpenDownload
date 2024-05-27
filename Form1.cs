@@ -7,6 +7,11 @@ namespace OpenDownload.NET
     public partial class Form1 : Form
     {
         /// <summary>
+        /// 管理是否在下载内
+        /// </summary>
+        private bool isDownloading = false;
+
+        /// <summary>
         /// 用于管理多区块下载各个区块的 Dictionary ，避免出现多区块下载时 listView 创建多个 Items 的尴尬问题
         /// </summary>
         private Dictionary<Task, ListViewItem> downloadTaskMap = new Dictionary<Task, ListViewItem>();
@@ -32,9 +37,23 @@ namespace OpenDownload.NET
             Status.Text = "准备就绪";
             newTaskForm = new New_Task();
             newTaskForm.DownloadStarted += OnDownloadStarted;
+            this.FormClosing += MainForm_FormClosing;
             // 设置 NotifyIcon 控件的属性
             notifyIcon.Icon = new Icon("icon.ico");
             notifyIcon.Visible = true;
+        }
+
+        // 窗体关闭前的确认提示
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (isDownloading)
+            {
+                DialogResult result = MessageBox.Show("仍有下载任务正在进行中，确定要关闭软件吗？", "警告", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.No)
+                {
+                    e.Cancel = true; // 取消关闭操作
+                }
+            }
         }
 
         #region 菜单项按钮方法 A
@@ -84,15 +103,42 @@ namespace OpenDownload.NET
             string sourceUrl = e.SourceUrl;
             string savePath = e.SavePath;
 
-            if (单区块模式ToolStripMenuItem.Checked) 
+            if (单区块模式ToolStripMenuItem.Checked)
             {
                 await DownloadFileAsync(sourceUrl, savePath);
             }
             else if (多区块模式ToolStripMenuItem.Checked)
             {
-                await MultiPartDownloadAsync(sourceUrl, savePath, 4);
+                Ping pingSender = new Ping();
+                PingReply reply = pingSender.Send("bing.com");
+
+                if (reply.Status == IPStatus.Success)
+                {
+                    if (reply.RoundtripTime < 10)
+                    {
+                        notifyIcon.ShowBalloonTip(1000, $"程序将划分 8 区块用于多区块下载", $"{reply.RoundtripTime} ms", ToolTipIcon.Info);
+                        await MultiPartDownloadAsync(sourceUrl, savePath, 8);
+                    }
+                    else if (reply.RoundtripTime < 30)
+                    {
+                        notifyIcon.ShowBalloonTip(1000, $"程序将划分 4 区块用于多区块下载", $"{reply.RoundtripTime} ms", ToolTipIcon.Info);
+                        await MultiPartDownloadAsync(sourceUrl, savePath, 4);
+                    }
+                    else
+                    {
+                        notifyIcon.ShowBalloonTip(1000, $"程序将划分 2 区块用于多区块下载", $"{reply.RoundtripTime} ms", ToolTipIcon.Info);
+                        await MultiPartDownloadAsync(sourceUrl, savePath, 2);
+                    }
+                }
+                else
+                {
+                    notifyIcon.ShowBalloonTip(1000, "下载已提前终止", "无法检测网络状态", ToolTipIcon.Error);
+                    return;
+                }
+
+
             }
-            
+
         }
 
 
@@ -108,6 +154,8 @@ namespace OpenDownload.NET
 
             using (HttpClient httpClient = new HttpClient())
             {
+                isDownloading = true;
+
                 try
                 {
                     // 设置自定义 User-Agent
@@ -133,11 +181,13 @@ namespace OpenDownload.NET
                     await DownloadFileWithProgressAsync(sourceUrl, savePath, response, newItem);
 
                     notifyIcon.ShowBalloonTip(1000, $"任务 {savePath} 已完成下载", "返回到主界面以查看详细信息", ToolTipIcon.Info);
+                    isDownloading = false;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("文件下载失败，日志已保存至 /Exception/{time}.log 中", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     notifyIcon.ShowBalloonTip(1000, $"任务 {savePath} 失败", "日志已保存至 /Exception/{time}.log 中，可在有需要时使用", ToolTipIcon.Error);
+                    isDownloading = false;
                     CrashLogSpawn(ex);
                     if (newItem != null)
                     {
@@ -157,9 +207,9 @@ namespace OpenDownload.NET
         /// <returns>完整文件</returns>
         private async Task MultiPartDownloadAsync(string sourceUrl, string savePath, int numParts)
         {
+            isDownloading = true;
             try
             {
-                notifyIcon.ShowBalloonTip(1000, $"多区块任务 {savePath} 已开始下载", "返回到主界面以查看详细信息", ToolTipIcon.Info);
                 long fileSize = await GetFileSizeAsync(sourceUrl);
                 long partSize = fileSize / numParts;
 
@@ -189,11 +239,13 @@ namespace OpenDownload.NET
                 CombineFile(savePath, numParts);
 
                 notifyIcon.ShowBalloonTip(1000, $"多区块任务 {savePath} 已完成下载", "返回到主界面以查看详细信息", ToolTipIcon.Info);
+                isDownloading = false;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("文件下载失败，日志已保存至 /Exception/{time}.log 中", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 notifyIcon.ShowBalloonTip(1000, $"多区块任务 {savePath} 失败", "日志已保存至 /Exception/{time}.log 中，可在有需要时使用", ToolTipIcon.Error);
+                isDownloading = false;
                 CrashLogSpawn(ex);
             }
         }
@@ -422,8 +474,8 @@ namespace OpenDownload.NET
 
                     // 循环结束后，一次性更新整个 ListView
                     listItem.SubItems[2].Text = "已完成";
-                    listItem.SubItems[3].Text = ""; 
-                    listItem.SubItems[4].Text = ""; 
+                    listItem.SubItems[3].Text = "";
+                    listItem.SubItems[4].Text = "";
                 }
             }
         }
@@ -482,6 +534,5 @@ namespace OpenDownload.NET
         }
 
         #endregion
-
     }
 }

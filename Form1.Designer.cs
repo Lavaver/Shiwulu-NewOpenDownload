@@ -97,7 +97,7 @@
             请求头ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 默认代理请求头配置按钮, 百度网盘专用代理请求头配置按钮, 用户自定义代理配置请求头按钮 });
             请求头ToolStripMenuItem.Image = (Image)resources.GetObject("请求头ToolStripMenuItem.Image");
             请求头ToolStripMenuItem.Name = "请求头ToolStripMenuItem";
-            请求头ToolStripMenuItem.Size = new Size(224, 26);
+            请求头ToolStripMenuItem.Size = new Size(197, 26);
             请求头ToolStripMenuItem.Text = "用户代理请求头";
             请求头ToolStripMenuItem.ToolTipText = "配置用户代理请求头（User-Agent），以避免可能的拒绝访问";
             // 
@@ -132,7 +132,7 @@
             分块下载ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 单区块模式ToolStripMenuItem, 多区块模式ToolStripMenuItem });
             分块下载ToolStripMenuItem.Image = (Image)resources.GetObject("分块下载ToolStripMenuItem.Image");
             分块下载ToolStripMenuItem.Name = "分块下载ToolStripMenuItem";
-            分块下载ToolStripMenuItem.Size = new Size(224, 26);
+            分块下载ToolStripMenuItem.Size = new Size(197, 26);
             分块下载ToolStripMenuItem.Text = "分块下载";
             分块下载ToolStripMenuItem.ToolTipText = "使用分块下载以提高下载速度";
             // 
@@ -141,17 +141,17 @@
             单区块模式ToolStripMenuItem.Checked = true;
             单区块模式ToolStripMenuItem.CheckState = CheckState.Checked;
             单区块模式ToolStripMenuItem.Name = "单区块模式ToolStripMenuItem";
-            单区块模式ToolStripMenuItem.Size = new Size(224, 26);
-            单区块模式ToolStripMenuItem.Text = "单区块模式";
-            单区块模式ToolStripMenuItem.ToolTipText = "使用标准的单区块下载";
+            单区块模式ToolStripMenuItem.Size = new Size(272, 26);
+            单区块模式ToolStripMenuItem.Text = "常规模式";
+            单区块模式ToolStripMenuItem.ToolTipText = "使用标准下载";
             单区块模式ToolStripMenuItem.Click += 单区块模式ToolStripMenuItem_Click;
             // 
             // 多区块模式ToolStripMenuItem
             // 
             多区块模式ToolStripMenuItem.Name = "多区块模式ToolStripMenuItem";
-            多区块模式ToolStripMenuItem.Size = new Size(224, 26);
-            多区块模式ToolStripMenuItem.Text = "多区块模式";
-            多区块模式ToolStripMenuItem.ToolTipText = "将下载内容分为多个区块，然后异步同时下载这些区块，全部完成后将合并区块为完整文件\r\n注意：虽然可以大幅度提升下载速度，但因为缓存文件+合并原因导致磁盘使用量要比单区块多得多，且部分设备可能会导致软件假死";
+            多区块模式ToolStripMenuItem.Size = new Size(272, 26);
+            多区块模式ToolStripMenuItem.Text = "自动根据网络情况划分区块";
+            多区块模式ToolStripMenuItem.ToolTipText = "将根据当前网络环境自动划分单个区块大小，省心省力又能最大化网络效率";
             多区块模式ToolStripMenuItem.Click += 多区块模式ToolStripMenuItem_Click;
             // 
             // toolStripButton1
