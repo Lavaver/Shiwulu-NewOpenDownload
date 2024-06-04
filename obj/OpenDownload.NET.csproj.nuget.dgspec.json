@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\repos\\Opendownload.NET\\OpenDownload.NET.csproj": {}
+    "D:\\repos\\OpenDownload.NET\\OpenDownload.NET.csproj": {}
   },
   "projects": {
-    "D:\\repos\\Opendownload.NET\\OpenDownload.NET.csproj": {
+    "D:\\repos\\OpenDownload.NET\\OpenDownload.NET.csproj": {
       "version": "2.1.0",
       "restore": {
-        "projectUniqueName": "D:\\repos\\Opendownload.NET\\OpenDownload.NET.csproj",
+        "projectUniqueName": "D:\\repos\\OpenDownload.NET\\OpenDownload.NET.csproj",
         "projectName": "OpenDownload.NET",
-        "projectPath": "D:\\repos\\Opendownload.NET\\OpenDownload.NET.csproj",
+        "projectPath": "D:\\repos\\OpenDownload.NET\\OpenDownload.NET.csproj",
         "packagesPath": "C:\\Users\\vvv\\.nuget\\packages\\",
-        "outputPath": "D:\\repos\\Opendownload.NET\\obj\\",
+        "outputPath": "D:\\repos\\OpenDownload.NET\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\vvv\\AppData\\Roaming\\NuGet\\NuGet.Config",
