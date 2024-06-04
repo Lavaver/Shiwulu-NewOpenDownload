@@ -1,31 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace OpenDownload.NET
 {
-    partial class About : Form
+    public partial class About : Form
     {
         public About()
         {
             InitializeComponent();
+            DotNetCore_VersionStatus.Text = $"{Environment.Version}";
         }
 
-
-
-        private void okButton_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void labelProductName_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Release 2.1 (Public Build 20015) 更新日志：\n- 添加若有下载任务时尝试关闭软件会弹窗警告是否继续关闭\n有关该软件发行版的详细信息，请参阅 https://github.com/Lavaver/Shiwulu-NewOpenDownload/releases 。", "Release 2.1 (Public Build 20015) 更新日志",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            MIT_License mIT_License = new();
+            mIT_License.ShowDialog();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("2.5 更新日志\n- 关于页面重构\n- 修复常规 bug", "2.5 更新日志",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
     }
 }

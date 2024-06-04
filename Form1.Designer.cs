@@ -97,7 +97,7 @@
             请求头ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 默认代理请求头配置按钮, 百度网盘专用代理请求头配置按钮, 用户自定义代理配置请求头按钮 });
             请求头ToolStripMenuItem.Image = (Image)resources.GetObject("请求头ToolStripMenuItem.Image");
             请求头ToolStripMenuItem.Name = "请求头ToolStripMenuItem";
-            请求头ToolStripMenuItem.Size = new Size(197, 26);
+            请求头ToolStripMenuItem.Size = new Size(224, 26);
             请求头ToolStripMenuItem.Text = "用户代理请求头";
             请求头ToolStripMenuItem.ToolTipText = "配置用户代理请求头（User-Agent），以避免可能的拒绝访问";
             // 
@@ -132,7 +132,7 @@
             分块下载ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 单区块模式ToolStripMenuItem, 多区块模式ToolStripMenuItem });
             分块下载ToolStripMenuItem.Image = (Image)resources.GetObject("分块下载ToolStripMenuItem.Image");
             分块下载ToolStripMenuItem.Name = "分块下载ToolStripMenuItem";
-            分块下载ToolStripMenuItem.Size = new Size(197, 26);
+            分块下载ToolStripMenuItem.Size = new Size(224, 26);
             分块下载ToolStripMenuItem.Text = "分块下载";
             分块下载ToolStripMenuItem.ToolTipText = "使用分块下载以提高下载速度";
             // 
@@ -182,12 +182,12 @@
             // 保存路径columnHeader
             // 
             保存路径columnHeader.Text = "保存路径";
-            保存路径columnHeader.Width = 520;
+            保存路径columnHeader.Width = 450;
             // 
             // 状态columnHeader
             // 
             状态columnHeader.Text = "下载状态";
-            状态columnHeader.Width = 100;
+            状态columnHeader.Width = 170;
             // 
             // columnHeader1
             // 
@@ -256,6 +256,6 @@
         private ColumnHeader columnHeader2;
         private ToolStripMenuItem 分块下载ToolStripMenuItem;
         private ToolStripMenuItem 单区块模式ToolStripMenuItem;
-        private ToolStripMenuItem 多区块模式ToolStripMenuItem;
+        public ToolStripMenuItem 多区块模式ToolStripMenuItem;
     }
 }

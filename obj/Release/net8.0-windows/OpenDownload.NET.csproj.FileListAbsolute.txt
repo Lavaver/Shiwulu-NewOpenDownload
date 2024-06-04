@@ -20,3 +20,4 @@ D:\repos\OpenDownload.NET\obj\Release\net8.0-windows\OpenDownload.NET.pdb
 D:\repos\OpenDownload.NET\obj\Release\net8.0-windows\OpenDownload.NET.genruntimeconfig.cache
 D:\repos\OpenDownload.NET\obj\Release\net8.0-windows\ref\OpenDownload.NET.dll
 D:\repos\OpenDownload.NET\bin\Release\net8.0-windows\icon.ico
+D:\repos\Opendownload.NET\obj\Release\net8.0-windows\OpenDownload.NET.MIT_License.resources

@@ -43,6 +43,7 @@ namespace OpenDownload.NET
             notifyIcon.Visible = true;
         }
 
+
         // 窗体关闭前的确认提示
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -100,43 +101,52 @@ namespace OpenDownload.NET
 
         private async void OnDownloadStarted(object sender, DownloadEventArgs e)
         {
-            string sourceUrl = e.SourceUrl;
-            string savePath = e.SavePath;
-
-            if (单区块模式ToolStripMenuItem.Checked)
+            try
             {
-                await DownloadFileAsync(sourceUrl, savePath);
-            }
-            else if (多区块模式ToolStripMenuItem.Checked)
-            {
-                Ping pingSender = new Ping();
-                PingReply reply = pingSender.Send("bing.com");
+                string sourceUrl = e.SourceUrl;
+                string savePath = e.SavePath;
 
-                if (reply.Status == IPStatus.Success)
+                if (单区块模式ToolStripMenuItem.Checked)
                 {
-                    if (reply.RoundtripTime < 10)
+                    await DownloadFileAsync(sourceUrl, savePath);
+                }
+                else if (多区块模式ToolStripMenuItem.Checked)
+                {
+                    Ping pingSender = new Ping();
+                    PingReply reply = pingSender.Send("cn.bing.com");
+
+                    if (reply.Status == IPStatus.Success)
                     {
-                        notifyIcon.ShowBalloonTip(1000, $"程序将划分 8 区块用于多区块下载", $"{reply.RoundtripTime} ms", ToolTipIcon.Info);
-                        await MultiPartDownloadAsync(sourceUrl, savePath, 8);
-                    }
-                    else if (reply.RoundtripTime < 30)
-                    {
-                        notifyIcon.ShowBalloonTip(1000, $"程序将划分 4 区块用于多区块下载", $"{reply.RoundtripTime} ms", ToolTipIcon.Info);
-                        await MultiPartDownloadAsync(sourceUrl, savePath, 4);
+                        if (reply.RoundtripTime < 10)
+                        {
+                            notifyIcon.ShowBalloonTip(1000, $"程序将划分 8 区块用于多区块下载", $"{reply.RoundtripTime} ms", ToolTipIcon.Info);
+                            await MultiPartDownloadAsync(sourceUrl, savePath, 8);
+                        }
+                        else if (reply.RoundtripTime < 30)
+                        {
+                            notifyIcon.ShowBalloonTip(1000, $"程序将划分 4 区块用于多区块下载", $"{reply.RoundtripTime} ms", ToolTipIcon.Info);
+                            await MultiPartDownloadAsync(sourceUrl, savePath, 4);
+                        }
+                        else
+                        {
+                            notifyIcon.ShowBalloonTip(1000, $"程序将划分 2 区块用于多区块下载", $"{reply.RoundtripTime} ms", ToolTipIcon.Info);
+                            await MultiPartDownloadAsync(sourceUrl, savePath, 2);
+                        }
                     }
                     else
                     {
                         notifyIcon.ShowBalloonTip(1000, $"程序将划分 2 区块用于多区块下载", $"{reply.RoundtripTime} ms", ToolTipIcon.Info);
                         await MultiPartDownloadAsync(sourceUrl, savePath, 2);
                     }
-                }
-                else
-                {
-                    notifyIcon.ShowBalloonTip(1000, "下载已提前终止", "无法检测网络状态", ToolTipIcon.Error);
-                    return;
-                }
 
 
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("文件下载失败，日志已保存至 /Exception/{time}.log 中", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CrashLogSpawn(ex);
+                return;
             }
 
         }
@@ -236,7 +246,7 @@ namespace OpenDownload.NET
                 await Task.WhenAll(downloadTasks);
 
                 // 将所有部分文件合并为完整文件
-                CombineFile(savePath, numParts);
+                await CombineFile(savePath, numParts);
 
                 notifyIcon.ShowBalloonTip(1000, $"多区块任务 {savePath} 已完成下载", "返回到主界面以查看详细信息", ToolTipIcon.Info);
                 isDownloading = false;
@@ -312,7 +322,7 @@ namespace OpenDownload.NET
                         // 循环结束后，一次性更新整个 ListView
                         listView1.Invoke(new Action(() =>
                         {
-                            item.SubItems[2].Text = "已完成";
+                            item.SubItems[2].Text = "已完成该部分";
                             item.SubItems[3].Text = ""; // 可能需要根据实际情况修改
                             item.SubItems[4].Text = ""; // 可能需要根据实际情况修改
                         }));
@@ -336,20 +346,40 @@ namespace OpenDownload.NET
         }
 
         /// <summary>
+        /// 读取区块文件的额外方法，用于解决超过 2 GB 文件会抛异常的问题
+        /// </summary>
+        /// <param name="filePath">区块文件</param>
+        /// <returns></returns>
+        private async Task<byte[]> ReadAllBytesUnrestrictedAsync(string filePath)
+        {
+            using (FileStream sourceStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.Asynchronous | FileOptions.SequentialScan))
+            {
+                byte[] buffer = new byte[sourceStream.Length];
+                await sourceStream.ReadAsync(buffer, 0, buffer.Length);
+                return buffer;
+            }
+        }
+
+        /// <summary>
         /// 合并区块为一个文件，然后《 卸 磨 杀 驴 》（指删除区块文件避免额外占用）
         /// </summary>
         /// <param name="savePath">保存路径</param>
         /// <param name="numParts">区块编号</param>
-        private void CombineFile(string savePath, int numParts)
+        private async Task CombineFile(string savePath, int numParts)
         {
             using (FileStream combinedFile = new FileStream(savePath, FileMode.Create, FileAccess.Write))
             {
                 for (int i = 0; i < numParts; i++)
                 {
+                    notifyIcon.ShowBalloonTip(1000, $"正在合并任务 {savePath} 的第 {i} 区块", "你可继续工作，完成后将提示你", ToolTipIcon.Info);
                     string partFilePath = $"{savePath}.part{i}";
-                    byte[] partBytes = File.ReadAllBytes(partFilePath);
-                    combinedFile.Write(partBytes, 0, partBytes.Length);
-                    File.Delete(partFilePath); // 删除临时部分文件
+                    byte[] partBytes = await ReadAllBytesUnrestrictedAsync(partFilePath);
+                    await combinedFile.WriteAsync(partBytes, 0, partBytes.Length);
+
+                    await Task.Run(() =>
+                    {
+                        File.Delete(partFilePath); // 删除临时部分文件
+                    });
                 }
             }
         }
@@ -534,5 +564,7 @@ namespace OpenDownload.NET
         }
 
         #endregion
+
+        
     }
 }

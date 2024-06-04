@@ -11,11 +11,12 @@
     <AssemblyVersion>2.1.0.20015</AssemblyVersion>
     <FileVersion>2.1.0.20015</FileVersion>
     <PackageIcon>minecraft.png</PackageIcon>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ApplicationIcon>OpenDownload Logo.ico</ApplicationIcon>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="icon.ico" />
+    <Content Include="OpenDownload Logo.ico" />
   </ItemGroup>
 
   <ItemGroup>

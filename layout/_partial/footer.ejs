@@ -1,0 +1,126 @@
+<!-- footer container -->
+<footer id="footer" class="footer">
+  <div class="footer-container">
+    <% if (theme.social_icon.enable) { %>
+    <div class="social-icons">
+      <% for (var i in theme.social_icon.icons) { %>
+        <% if (theme.social_icon.icons[i]) { %>
+          <a href="<%= theme.social_icon.icons[i] %>" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <%- partial("../_svg/social-"+ i +".svg") %>
+          </a>
+        <% } %>
+      <% } %>
+    </div>
+    <% } %> 
+    <p>&copy; <%= date(new Date(), 'YYYY') %> <a href="/" target="_blank"><%= config.author %></a></p>
+
+    <% /* Contains a URL or a URL fragment that the hyperlink points to. A URL fragment is a name preceded by a hash mark (#), which specifies an internal target location (an id of an HTML element) within the current document. URLs are not restricted to Web (HTTP)-based documents, but can use any protocol supported by the browser. For example, file:, ftp:, and mailto: work in most browsers.
+
+Note: You can use href="#top" or the empty fragment href="#" to link to the top of the current page. This behavior is specified by HTML5.
+
+PS：我至今都没能明白 VS 2022 是不是把 ejs 看成 XML 了，大哥这是 HTML 啊（（*/ %>
+
+    <% if (theme.beian) { %>
+      <p><a href="https://beian.miit.gov.cn" target="_blank"><%= theme.beian %></a></p>
+    <% } %>
+
+
+    <a href="https://icp.gov.moe/?keyword=20230357" target="_blank">萌ICP备20230357号</a>
+
+    <p>由 <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> 强力支持的博客站</p>
+
+    <p>
+      <a href="javascript:;" id="theme-light">🌞 浅色</a>
+      <a href="javascript:;" id="theme-dark">🌛 深色</a>
+    </p>
+
+    <div class"text" id="addressinfo"></div>
+
+    <div class="text" id="randomText">🔘 点击这里查看一些奇♂妙的留言或梗（有概率触发某些好事...？）</div>
+
+  </div>
+</footer>
+
+<script>
+  const textArray = ['早餐吃得好，面包配咖啡！', '毒 牛 奶 会 害 人', '我 有 抑 郁 症', '我来机厅打白潘纯粹就是我好这口（）', '跟本站长一起说：咕咕咕！', '你说我做这个博客 90% 的精力都花在了什么地方？当然是无限的在 /layout/_partial/footer.ejs 里魔改主题代码呀（）', '世界上最遥远的距离：写博文、改代码和 Deploy（悲）', 'Tips：你知道吗？本站长每日都要消耗几十盒浓缩咖啡液，是的...几十盒...', '原来 Localhost 叫 loaclhost （懂了，127.0.0.1 原来叫 1.0.0.127）', 'Tips：西安地铁的西户线是全国唯一一个用内燃机车运行的线路', '我最希望的就是去当外卖员，这样就能天天给人超时（）', 'Tips：什么都吃只会害了你啊啊啊啊啊啊啊（怒）', 'U&iVERSE！','Minecraft我的爱'];
+
+  const randomText = document.getElementById('randomText');
+
+  let countdownTimer;
+
+  randomText.addEventListener('click', function() {
+      const newText = textArray[Math.floor(Math.random() * textArray.length)];
+      if (Math.random() < 0.01) {
+          alert('⚠️ 概率性事件被激活了！5 秒后将触发事件！')
+          countdownTimer = setTimeout(() => {
+              openLink();
+          }, 5000); // 5秒后触发操作
+      } else {
+          randomText.innerHTML = `<span class="typing">${newText}</span>`;
+      }
+  });
+
+  function openLink() {
+      randomText.innerHTML = 'Minecraft，启动！';
+      const url = 'minecraft://'; // 替换成你要打开的链接
+      window.location.href = url;
+  }
+
+
+
+
+</script>
+
+<script>
+  // 为什么《非法语法》，难道我调用 API 犯罪了？（
+// 当页面加载完成时执行
+document.addEventListener('DOMContentLoaded', function() {
+  // 发送 POST 请求的函数
+  function sendPostRequest() {
+
+      console.log("请稍候。");
+
+      // 替换为你的 API 地址
+      var apiUrl = 'https://tenapi.cn/v2/getip';
+
+      // 定义请求参数
+      var params = {}; // 这里根据你的实际需求提供请求参数
+
+      // 构建请求选项
+      var requestOptions = {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: new URLSearchParams(params)
+      };
+
+      // 发送 POST 请求
+      fetch(apiUrl, requestOptions)
+          .then(response => {
+              // 检查请求是否成功
+              if (!response.ok) {
+                  throw new Error('请求失败');
+              }
+              // 解析 JSON 数据
+              return response.json();
+          })
+          .then(data => {
+              // 处理返回的 JSON 数据
+              if (data.code === 200) {
+                  // 在 <div id="addressinfo"> 中显示返回的数据
+                  document.getElementById('addressinfo').innerText = "操作系统：" + JSON.stringify(data.data.os) + "，浏览器：" + JSON.stringify(data.data.browser);
+              } else {
+                  console.error('请求成功，但返回数据异常');
+              }
+          })
+          .catch(error => {
+              // 处理请求失败的情况
+              console.error('在尝试请求信息时发生问题:', error);
+          });
+  }
+
+  // 在页面加载完成后立即发送请求
+  sendPostRequest();
+});
+</script>

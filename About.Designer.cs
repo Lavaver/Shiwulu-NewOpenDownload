@@ -3,13 +3,14 @@
     partial class About
     {
         /// <summary>
-        /// 必需的设计器变量。
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// 清理所有正在使用的资源。
+        /// Clean up any resources being used.
         /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -19,173 +20,196 @@
             base.Dispose(disposing);
         }
 
-        #region Windows 窗体设计器生成的代码
+        #region Windows Form Designer generated code
 
         /// <summary>
-        /// 设计器支持所需的方法 - 不要修改
-        /// 使用代码编辑器修改此方法的内容。
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
-            tableLayoutPanel = new TableLayoutPanel();
-            logoPictureBox = new PictureBox();
-            labelProductName = new Label();
-            labelVersion = new Label();
-            labelCopyright = new Label();
-            labelCompanyName = new Label();
-            textBoxDescription = new TextBox();
-            okButton = new Button();
-            tableLayoutPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)logoPictureBox).BeginInit();
+            pictureBox1 = new PictureBox();
+            label1 = new Label();
+            label2 = new Label();
+            label3 = new Label();
+            groupBox1 = new GroupBox();
+            button1 = new Button();
+            label5 = new Label();
+            label4 = new Label();
+            groupBox2 = new GroupBox();
+            DotNetCore_VersionStatus = new Label();
+            label6 = new Label();
+            button2 = new Button();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
-            // tableLayoutPanel
+            // pictureBox1
             // 
-            tableLayoutPanel.ColumnCount = 2;
-            tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
-            tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 67F));
-            tableLayoutPanel.Controls.Add(logoPictureBox, 0, 0);
-            tableLayoutPanel.Controls.Add(labelProductName, 1, 0);
-            tableLayoutPanel.Controls.Add(labelVersion, 1, 1);
-            tableLayoutPanel.Controls.Add(labelCopyright, 1, 2);
-            tableLayoutPanel.Controls.Add(labelCompanyName, 1, 3);
-            tableLayoutPanel.Controls.Add(textBoxDescription, 1, 4);
-            tableLayoutPanel.Controls.Add(okButton, 1, 5);
-            tableLayoutPanel.Dock = DockStyle.Fill;
-            tableLayoutPanel.Location = new Point(14, 14);
-            tableLayoutPanel.Margin = new Padding(4, 5, 4, 5);
-            tableLayoutPanel.Name = "tableLayoutPanel";
-            tableLayoutPanel.RowCount = 6;
-            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel.Size = new Size(624, 407);
-            tableLayoutPanel.TabIndex = 0;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(12, 12);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(209, 183);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
             // 
-            // logoPictureBox
+            // label1
             // 
-            logoPictureBox.Dock = DockStyle.Fill;
-            logoPictureBox.Image = (Image)resources.GetObject("logoPictureBox.Image");
-            logoPictureBox.Location = new Point(4, 5);
-            logoPictureBox.Margin = new Padding(4, 5, 4, 5);
-            logoPictureBox.Name = "logoPictureBox";
-            tableLayoutPanel.SetRowSpan(logoPictureBox, 6);
-            logoPictureBox.Size = new Size(197, 397);
-            logoPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            logoPictureBox.TabIndex = 12;
-            logoPictureBox.TabStop = false;
+            label1.AutoSize = true;
+            label1.Font = new Font("Microsoft YaHei UI", 20F);
+            label1.Location = new Point(243, 38);
+            label1.Name = "label1";
+            label1.Size = new Size(416, 45);
+            label1.TabIndex = 1;
+            label1.Text = "Shiwulu OpenDownload";
             // 
-            // labelProductName
+            // label2
             // 
-            labelProductName.Dock = DockStyle.Fill;
-            labelProductName.Location = new Point(214, 0);
-            labelProductName.Margin = new Padding(9, 0, 4, 0);
-            labelProductName.MaximumSize = new Size(0, 26);
-            labelProductName.Name = "labelProductName";
-            labelProductName.Size = new Size(406, 26);
-            labelProductName.TabIndex = 19;
-            labelProductName.Text = "Shiwulu OpenDownload 2";
-            labelProductName.TextAlign = ContentAlignment.MiddleLeft;
-            labelProductName.Click += labelProductName_Click;
+            label2.AutoSize = true;
+            label2.Font = new Font("Microsoft YaHei UI", 10F);
+            label2.Location = new Point(253, 137);
+            label2.Name = "label2";
+            label2.Size = new Size(306, 23);
+            label2.TabIndex = 2;
+            label2.Text = "Release 2.5（单击此处查看更新日志）";
+            label2.Click += label2_Click;
             // 
-            // labelVersion
+            // label3
             // 
-            labelVersion.Dock = DockStyle.Fill;
-            labelVersion.Location = new Point(214, 40);
-            labelVersion.Margin = new Padding(9, 0, 4, 0);
-            labelVersion.MaximumSize = new Size(0, 26);
-            labelVersion.Name = "labelVersion";
-            labelVersion.Size = new Size(406, 26);
-            labelVersion.TabIndex = 0;
-            labelVersion.Text = "Release 2.1 (Build 20015)";
-            labelVersion.TextAlign = ContentAlignment.MiddleLeft;
+            label3.AutoSize = true;
+            label3.Font = new Font("Microsoft YaHei UI", 12F);
+            label3.Location = new Point(253, 97);
+            label3.Name = "label3";
+            label3.Size = new Size(391, 27);
+            label3.TabIndex = 3;
+            label3.Text = "A .NET Core-based Free Download Tool";
             // 
-            // labelCopyright
+            // groupBox1
             // 
-            labelCopyright.Dock = DockStyle.Fill;
-            labelCopyright.Location = new Point(214, 80);
-            labelCopyright.Margin = new Padding(9, 0, 4, 0);
-            labelCopyright.MaximumSize = new Size(0, 26);
-            labelCopyright.Name = "labelCopyright";
-            labelCopyright.Size = new Size(406, 26);
-            labelCopyright.TabIndex = 21;
-            labelCopyright.Text = "本项目源码及其发行版遵循 MIT 许可证协议";
-            labelCopyright.TextAlign = ContentAlignment.MiddleLeft;
+            groupBox1.Controls.Add(button1);
+            groupBox1.Controls.Add(label5);
+            groupBox1.Location = new Point(12, 214);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(950, 77);
+            groupBox1.TabIndex = 4;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "开发者";
             // 
-            // labelCompanyName
+            // button1
             // 
-            labelCompanyName.Dock = DockStyle.Fill;
-            labelCompanyName.Location = new Point(214, 120);
-            labelCompanyName.Margin = new Padding(9, 0, 4, 0);
-            labelCompanyName.MaximumSize = new Size(0, 26);
-            labelCompanyName.Name = "labelCompanyName";
-            labelCompanyName.Size = new Size(406, 26);
-            labelCompanyName.TabIndex = 22;
-            labelCompanyName.Text = "Copyright (c) Lavaver 2024";
-            labelCompanyName.TextAlign = ContentAlignment.MiddleLeft;
+            button1.Location = new Point(765, 32);
+            button1.Name = "button1";
+            button1.Size = new Size(155, 29);
+            button1.TabIndex = 7;
+            button1.Text = "MIT 许可证信息";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
-            // textBoxDescription
+            // label5
             // 
-            textBoxDescription.Dock = DockStyle.Fill;
-            textBoxDescription.Location = new Point(214, 165);
-            textBoxDescription.Margin = new Padding(9, 5, 4, 5);
-            textBoxDescription.Multiline = true;
-            textBoxDescription.Name = "textBoxDescription";
-            textBoxDescription.ReadOnly = true;
-            textBoxDescription.ScrollBars = ScrollBars.Both;
-            textBoxDescription.Size = new Size(406, 193);
-            textBoxDescription.TabIndex = 23;
-            textBoxDescription.TabStop = false;
-            textBoxDescription.Text = resources.GetString("textBoxDescription.Text");
+            label5.AutoSize = true;
+            label5.Font = new Font("Microsoft YaHei UI", 10F);
+            label5.Location = new Point(24, 34);
+            label5.Name = "label5";
+            label5.Size = new Size(608, 23);
+            label5.TabIndex = 6;
+            label5.Text = "Lavaver（规划、软件设计、程序、原 Java 版作者，也是这款软件唯一的作者）";
             // 
-            // okButton
+            // label4
             // 
-            okButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            okButton.DialogResult = DialogResult.Cancel;
-            okButton.Location = new Point(508, 368);
-            okButton.Margin = new Padding(4, 5, 4, 5);
-            okButton.Name = "okButton";
-            okButton.Size = new Size(112, 34);
-            okButton.TabIndex = 24;
-            okButton.Text = "确定(&O)";
-            okButton.Click += okButton_Click;
+            label4.AutoSize = true;
+            label4.Font = new Font("Microsoft YaHei UI", 10F);
+            label4.Location = new Point(253, 172);
+            label4.Name = "label4";
+            label4.Size = new Size(162, 23);
+            label4.TabIndex = 5;
+            label4.Text = "Public Build 20055";
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(DotNetCore_VersionStatus);
+            groupBox2.Controls.Add(label6);
+            groupBox2.Location = new Point(12, 297);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(950, 73);
+            groupBox2.TabIndex = 6;
+            groupBox2.TabStop = false;
+            groupBox2.Text = ".NET Core 版本信息";
+            // 
+            // DotNetCore_VersionStatus
+            // 
+            DotNetCore_VersionStatus.AutoSize = true;
+            DotNetCore_VersionStatus.Font = new Font("Microsoft YaHei UI", 10F);
+            DotNetCore_VersionStatus.Location = new Point(485, 34);
+            DotNetCore_VersionStatus.Name = "DotNetCore_VersionStatus";
+            DotNetCore_VersionStatus.Size = new Size(0, 23);
+            DotNetCore_VersionStatus.TabIndex = 7;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Microsoft YaHei UI", 10F);
+            label6.Location = new Point(24, 34);
+            label6.Name = "label6";
+            label6.Size = new Size(455, 23);
+            label6.TabIndex = 7;
+            label6.Text = "该软件需求 .NET Core 8 及以上版本，你正在运行的版本为";
+            // 
+            // button2
+            // 
+            button2.Location = new Point(777, 390);
+            button2.Name = "button2";
+            button2.Size = new Size(155, 29);
+            button2.TabIndex = 8;
+            button2.Text = "关闭";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // About
             // 
-            AcceptButton = okButton;
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(652, 435);
-            Controls.Add(tableLayoutPanel);
+            ClientSize = new Size(974, 441);
+            Controls.Add(button2);
+            Controls.Add(groupBox2);
+            Controls.Add(label4);
+            Controls.Add(groupBox1);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.FixedDialog;
-            Margin = new Padding(4, 5, 4, 5);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "About";
-            Padding = new Padding(14);
-            ShowIcon = false;
             ShowInTaskbar = false;
-            StartPosition = FormStartPosition.CenterParent;
-            Text = "关于本软件";
-            tableLayoutPanel.ResumeLayout(false);
-            tableLayoutPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)logoPictureBox).EndInit();
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "关于 OpenDownload";
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
-        private System.Windows.Forms.PictureBox logoPictureBox;
-        private System.Windows.Forms.Label labelProductName;
-        private System.Windows.Forms.Label labelVersion;
-        private System.Windows.Forms.Label labelCopyright;
-        private System.Windows.Forms.Label labelCompanyName;
-        private System.Windows.Forms.TextBox textBoxDescription;
-        private System.Windows.Forms.Button okButton;
+        private PictureBox pictureBox1;
+        private Label label1;
+        private Label label2;
+        private Label label3;
+        private GroupBox groupBox1;
+        private Label label5;
+        private Label label4;
+        private GroupBox groupBox2;
+        private Label DotNetCore_VersionStatus;
+        private Label label6;
+        private Button button1;
+        private Button button2;
     }
 }

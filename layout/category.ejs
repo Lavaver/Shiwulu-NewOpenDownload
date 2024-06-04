@@ -1,0 +1,32 @@
+<!-- 分类归档 -->
+
+<%- partial('_partial/article-list') %>
+
+<%- partial('_partial/pagination') %>
+
+<div id="warning-popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; border: 2px solid #f00;">
+    <p>根据防范 CSDN 未经许可转载情况，现全站实行一律禁止复制内容！</p>
+    <p>若需要复制内容，请 <a href="mailto:luozicat@outlook.com" style="color: blue;">联系站长</a>请求临时复制权限！</p>
+</div>
+
+<script>
+    // 禁止右键菜单
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    // 监听复制事件
+    document.addEventListener('copy', function(e) {
+        e.preventDefault();
+        showWarningPopup();
+    });
+
+    // 显示警告弹窗
+    function showWarningPopup() {
+        var popup = document.getElementById('warning-popup');
+        popup.style.display = 'block';
+        setTimeout(function() {
+            popup.style.display = 'none';
+        }, 2000); // 设置警告弹窗显示时间为2秒
+    }
+</script>
